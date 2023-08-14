@@ -13,7 +13,7 @@ type TypographyVariants = keyof typeof typographyVariants;
 interface TypographyProps {
   variant: TypographyVariants;
   className?: string;
-  children: string;
+  children: string | number;
 }
 
 const Typography = (props: TypographyProps) => {

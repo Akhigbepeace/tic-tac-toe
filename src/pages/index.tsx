@@ -1,58 +1,61 @@
-import Button from "@/components/atoms/button";
+import Button, {
+  BackgroundVariant,
+  SizeVariant,
+} from "@/components/atoms/button";
 import Logo from "@/components/atoms/logo";
-import Typography from "@/components/atoms/typography";
-import Image from "next/image";
-import React from "react";
+import SelectSideButton from "@/components/molecules/select-side-button";
+import {
+  handleNewGameVsComputer,
+  handleNewGameVsPlayer,
+} from "@/config/select-opponent";
+import React, { useState } from "react";
+import { NextRouter, useRouter } from "next/router";
+
+interface SelectOponentButtonType {
+  variant: BackgroundVariant;
+  size: SizeVariant;
+  handleOnClick: (router: NextRouter, setLoading: any) => void;
+  children: string;
+}
 
 const Home = () => {
-  const XShpae = "/assets/x-shape.png";
-  const OShpae = "/assets/o-shape.png";
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleNewGameVsComputer = () => {};
-  const handleNewGameVsPlayer = () => {};
+  const selectOponentButton: SelectOponentButtonType[] = [
+    {
+      variant: "primaryButton1",
+      size: "primary",
+      handleOnClick: handleNewGameVsComputer,
+      children: "NEW GAME (VS CPU)",
+    },
+    {
+      variant: "primaryButton2",
+      size: "primary",
+      handleOnClick: handleNewGameVsPlayer,
+      children: "NEW GAME (VS PLAYER)",
+    },
+  ];
 
   return (
-    <div className="flex flex-col items-center justify-center py-[100px]">
+    <div className="flex flex-col items-center justify-center overflow-hidden px-[24px] md:px-0 py-[100px]">
       <Logo />
 
-      <div className="px-[24px] flex flex-col items-center justify-center my-[40px] rounded-[10px] shadow-[0px_8px_0px_#10212A] bg-light-navy py-[30px]">
-        <Typography variant="h4">PICK PLAYER 1’S MARK</Typography>
-
-        <div className="flex items-center text-[32px] font-[700] w-[412px] h-[72px] rounded-[10px] mt-[24px] mb-[17px] justify-center bg-dark-navy">
-          <button className="hover:bg-dark-grey hover:opacity-5 h-[54px] rounded-[10px] w-[198px]">
-            {/* <button className="hover:opacity-[5%] h-[54px] rounded-[10px] w-[198px]"> */}
-            <div className="relative w-[32px] h-[32px] mx-auto">
-              <Image src={XShpae} alt="X-shape" fill />
-            </div>
-          </button>
-
-          <button className="bg-dark-grey rounded-[10px] w-[198px]  h-[54px]">
-            <div className="relative w-[32px] h-[32px] mx-auto">
-              <Image src={OShpae} alt="O-shape" fill />
-            </div>
-          </button>
-        </div>
-
-        <Typography variant="p" className="opacity-50">
-          REMEMBER : X GOES FIRST
-        </Typography>
-      </div>
+      <SelectSideButton />
 
       <div className="flex flex-col gap-[20px]">
-        <Button
-          variant="primaryButton1"
-          size="primary"
-          handleOnClick={handleNewGameVsComputer}
-        >
-          NEW GAME (VS CPU)
-        </Button>
-        <Button
-          variant="primaryButton2"
-          size="primary"
-          handleOnClick={handleNewGameVsPlayer}
-        >
-          NEW GAME (VS PLAYER)
-        </Button>
+        {selectOponentButton.map((oponent, index) => (
+          <Button
+            key={index}
+            variant={oponent.variant}
+            size={oponent.size}
+            handleOnClick={() => {
+              oponent.handleOnClick(router, setLoading);
+            }}
+          >
+            {loading ? "Please wait..." : oponent.children}
+          </Button>
+        ))}
       </div>
     </div>
   );
