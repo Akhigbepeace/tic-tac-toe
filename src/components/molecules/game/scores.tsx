@@ -1,4 +1,5 @@
 import Typography from "@/components/atoms/typography";
+import clsx from "clsx";
 import React from "react";
 
 const Scores = () => {
@@ -11,7 +12,6 @@ const Scores = () => {
     {
       title: "TIES",
       background: "bg-dark-grey",
-
       value: 0,
     },
     {
@@ -26,12 +26,15 @@ const Scores = () => {
         return (
           <div
             key={index}
-            className={`text-center text-dark-navy ${score.background} w-full rounded-[10px] p-[12px_20px] lg:p-[13px_42px] `}
+            className={clsx(
+              score.background,
+              "text-center flex flex-col text-dark-navy w-full rounded-[10px] p-[12px_19px] lg:p-[13px_42px] "
+            )}
           >
-            <Typography variant="p" className=" text-dark-navy">
+            <Typography variant="p" color="navy">
               {score.title}
             </Typography>
-            <Typography variant="h2" className=" text-dark-navy">
+            <Typography variant="h2" color="navy">
               {score.value}
             </Typography>
           </div>

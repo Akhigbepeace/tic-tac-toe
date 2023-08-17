@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React from "react";
 
 const typographyVariants = {
@@ -8,19 +9,29 @@ const typographyVariants = {
   p: "text-[14px] font-[500] text-dark-grey",
 };
 
+const textColorVariants = {
+  grey: "text-dark-grey",
+  yellow: "text-dark-yellow",
+  blue: "text-dark-blue",
+  navy: "text-dark-navy",
+};
+
 type TypographyVariants = keyof typeof typographyVariants;
+type TextColorVariants = keyof typeof textColorVariants;
 
 interface TypographyProps {
   variant: TypographyVariants;
-  className?: string;
   children: string | number;
+  color: TextColorVariants;
 }
 
 const Typography = (props: TypographyProps) => {
-  const { children, className, variant } = props;
-  const typographyClass = typographyVariants[variant];
+  const { children, variant, color = "grey" } = props;
 
-  return <div className={`${typographyClass} ${className}`}>{children}</div>;
+  const typographyClx = typographyVariants[variant];
+  const textColorClx = textColorVariants[color];
+
+  return <span className={clsx(typographyClx, textColorClx)}>{children}</span>;
 };
 
 export default Typography;
