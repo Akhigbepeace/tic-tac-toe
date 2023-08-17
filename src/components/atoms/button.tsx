@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { ReactNode } from "react";
 
 const backgroundVariant = {
@@ -14,7 +15,8 @@ const backgroundVariant = {
 
 const sizeMapper = {
   primary: "md:w-[460px] w-[327px] text-[20px]",
-  secondary: "w-[226px] text-[16px] ",
+  secondary: "w-[226px] text-[16px]",
+  auto: "text-[16px] px-[20px]",
   small: "w-[52px] h-[52px] text-[20px]",
 };
 
@@ -31,11 +33,18 @@ type ButtonProps = {
 
 const Button = (props: ButtonProps) => {
   const { children, variant, size, className, handleOnClick } = props;
+
   const background = backgroundVariant[variant];
   const sizes = sizeMapper[size];
+
   return (
     <button
-      className={`${background} ${sizes} ${className} py-[15px] font-[700] text-center transition-all text-dark-navy rounded-[10px] `}
+      className={clsx(
+        background,
+        sizes,
+        className,
+        "py-[15px] font-[700] text-center transition-all text-dark-navy rounded-[10px]"
+      )}
       onClick={handleOnClick}
     >
       {children}

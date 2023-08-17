@@ -38,7 +38,7 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center overflow-hidden px-[24px] md:px-0 py-[100px]">
+    <div className="flex flex-col items-center justify-center overflow-hidden px-[24px] md:px-0">
       <Logo />
 
       <SelectSideButton />
