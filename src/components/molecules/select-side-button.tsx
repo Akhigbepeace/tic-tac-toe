@@ -3,8 +3,8 @@ import Typography from "@/components/atoms/typography";
 import Image from "next/image";
 
 const SelectSideButton = () => {
-  const XShpae = "/assets/x-shape.png";
-  const OShpae = "/assets/o-shape.png";
+  const XShpae = "/assets/icon-x-grey.svg";
+  const OShpae = "/assets/icon-o-grey.svg";
   return (
     <div className="px-[24px] flex flex-col items-center justify-center my-[40px] md:w-[460px] w-[327px] rounded-[10px] shadow-[0px_8px_0px_#10212A] bg-light-navy py-[30px]">
       <Typography variant="h4" color="grey">

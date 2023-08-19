@@ -14,7 +14,10 @@ import { NextRouter, useRouter } from "next/router";
 interface SelectOponentButtonType {
   variant: BackgroundVariant;
   size: SizeVariant;
-  handleOnClick: (router: NextRouter, setLoading: any) => void;
+  handleOnClick: (
+    router: NextRouter,
+    setLoading: (value: boolean) => void
+  ) => void;
   children: string;
 }
 

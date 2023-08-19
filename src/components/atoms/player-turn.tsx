@@ -2,8 +2,8 @@ import Image from "next/image";
 import React from "react";
 
 const PlayerTurn = () => {
-  const XShpae = "/assets/x-shape.png";
-  const OShpae = "/assets/o-shape.png";
+  const XShpae = "/assets/icon-x-grey.svg";
+  const OShpae = "/assets/icon-o-grey.svg";
 
   return (
     <div className="flex items-center justify-center lg:w-[140px] gap-[13px] bg-light-navy rounded-[10px] p-[11px_15px] lg:p-[13px_30px] shadow-[0px_4px_0px_#10212A] h-[52px]">
