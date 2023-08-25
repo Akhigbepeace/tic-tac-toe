@@ -1,21 +1,23 @@
 import Logo from "@/components/atoms/logo";
 import PlayerTurn from "@/components/atoms/player-turn";
 import RestartButton from "@/components/atoms/restart-button";
-import React, { ReactNode } from "react";
+import React from "react";
 
-interface HeadingProps {
-  setGameBlocks: (value: ReactNode[]) => void;
-}
+type HeadingProps = {
+  onRestart: () => void;
+  nextPlayer: string;
+};
 
-const Heading = ({ setGameBlocks }: HeadingProps) => {
-  // const Heading = ({ setGameBlocks }: (value: ReactNode[]) => void) => {
+const Heading = (props: HeadingProps) => {
+  const { onRestart, nextPlayer } = props;
+
   return (
     <div className="flex justify-between items-center mb-[64px] lg:mb-0 ">
       <Logo />
 
-      <PlayerTurn />
+      <PlayerTurn nextPlayer={nextPlayer} />
 
-      <RestartButton setGameBlocks={setGameBlocks} />
+      <RestartButton onRestart={onRestart} />
     </div>
   );
 };
