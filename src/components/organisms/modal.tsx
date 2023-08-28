@@ -1,28 +1,25 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Typography from "../atoms/typography";
 import Button from "../atoms/button";
 import clsx from "clsx";
 
-type ModalProps = {
-  subHeading?: string;
-  heading: ReactNode;
-  showModalClsx?: string;
+interface ModalProps {
+  showModalClsx: string;
   handleSecondaryButton: () => void;
   handlePrimaryButton: () => void;
   primaryButtonText: "YES, RESTART " | "NEXT ROUND";
   secondaryButtonText: "NO, CANCEL" | "QUIT";
-};
+}
 
 const Modal = (props: ModalProps) => {
   const {
-    subHeading,
-    heading,
     showModalClsx,
     primaryButtonText = "NEXT ROUND",
     secondaryButtonText = "QUIT",
     handlePrimaryButton,
-    handleSecondaryButton,
+    handleSecondaryButton
   } = props;
+
 
   return (
     <div
@@ -32,17 +29,18 @@ const Modal = (props: ModalProps) => {
       )}
     >
       <div className="bg-light-navy w-full py-[67px] flex flex-col items-center justify-center">
-        <div className="mt-[23]px">
-          <Typography variant="h4" color="grey">
-            {subHeading}
+        <div className="space-x-[3px]">
+          <Typography variant={"h1"} color="grey">
+            RESTART GAME?
           </Typography>
         </div>
-        <div className="space-x-[3px]">{heading}</div>
-        <div className="flex mt-[31px] gap-[16px]">
+
+        <div className="flex mt-[31px] gap-[16px]  ">
           <Button
             variant="secondaryButton2"
             size="auto"
             handleOnClick={handleSecondaryButton}
+            // handleOnClick={handleModalDisplay}
           >
             {secondaryButtonText}
           </Button>
