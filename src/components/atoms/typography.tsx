@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import React, { ReactNode } from "react";
+import React from "react";
 
 const typographyVariants = {
-  h1: "text-[40px] font-[700]",
-  h2: "text-[24px] font-[700]",
-  h3: "text-[20px] font-[700]",
-  h4: "text-[16px] font-[700]",
-  p: "text-[14px] font-[500]",
+  h1: "text-[40px] font-[700] text-dark-grey",
+  h2: "text-[24px] font-[700] text-dark-grey",
+  h3: "text-[20px] font-[700] text-dark-grey",
+  h4: "text-[16px] font-[700] text-dark-grey",
+  p: "text-[14px] font-[500] text-dark-grey",
 };
 
 const textColorVariants = {
@@ -19,24 +19,19 @@ const textColorVariants = {
 type TypographyVariants = keyof typeof typographyVariants;
 type TextColorVariants = keyof typeof textColorVariants;
 
-type TypographyProps = {
+interface TypographyProps {
   variant: TypographyVariants;
-  children: string | number | ReactNode;
+  children: string | number;
   color: TextColorVariants;
-  htmlTag?: TypographyVariants | "span" | "div";
-};
+}
 
 const Typography = (props: TypographyProps) => {
-  const { children, variant, htmlTag, color = "grey" } = props;
-  const Component = htmlTag || variant;
+  const { children, variant, color = "grey" } = props;
+
   const typographyClx = typographyVariants[variant];
   const textColorClx = textColorVariants[color];
 
-  return (
-    <Component className={clsx(typographyClx, textColorClx)}>
-      {children}
-    </Component>
-  );
+  return <span className={clsx(typographyClx, textColorClx)}>{children}</span>;
 };
 
 export default Typography;
