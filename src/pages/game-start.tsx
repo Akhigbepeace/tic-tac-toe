@@ -13,9 +13,15 @@ const GameStart = () => {
 
   const [currentPlayer, setCurrentPlayer] = useState<ReactNode>("O");
 
-  const [nextPlayer, setNextPlayer] = useState("O");
+  const [nextPlayer, setNextPlayer] = useState<string>("O");
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const [playerXScore, setPlayerXScore] = useState<number>(0);
+
+  const [drawScore, setDrawScore] = useState<number>(0);
+
+  const [playerOScore, setPlayerOScore] = useState<number>(0);
 
   const handleRestart = () => {
     setGameResult(null);
@@ -36,7 +42,19 @@ const GameStart = () => {
 
   const checkGameResult = (squares: ReactNode[]) => {
     const winner = calculateWinner(squares);
-    console.log("The winner is ==?", winner);
+
+    if (winner?.player === "X") {
+      setPlayerXScore(playerXScore + 1);
+    }
+
+    if (winner?.player === "draw") {
+      setDrawScore(drawScore + 1);
+    }
+
+    if (winner?.player === "O") {
+      setPlayerOScore(playerOScore + 1);
+    }
+
     if (winner) {
       setTimeout(() => {
         setGameResult(winner);
@@ -60,7 +78,7 @@ const GameStart = () => {
           setGameBlocks={setGameBlocks}
         />
 
-        <Scores />
+        <Scores playerXScore={playerXScore} drawScore={drawScore} playerOScore={playerOScore} />
       </div>
     </div>
   );
