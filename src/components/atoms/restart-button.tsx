@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, ReactNode } from "react";
 import Button from "./button";
 import Modal from "../organisms/modal";
 import Image from "next/image";
-import Typography from "./typography";
 
-type RestartButtonProps = {
-  onRestart: () => void;
-};
+interface RestartButtonProps {
+  setGameBlocks: (value: ReactNode[]) => void;
+}
 
-const RestartButton = ({ onRestart }: RestartButtonProps) => {
+const RestartButton = ({ setGameBlocks }: RestartButtonProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const showModalClsx = showModal ? "block" : "hidden";
@@ -18,7 +17,7 @@ const RestartButton = ({ onRestart }: RestartButtonProps) => {
   };
 
   const handleRestartGame = () => {
-    onRestart();
+    setGameBlocks(Array(9).fill(""));
     setShowModal(false);
   };
 
@@ -26,24 +25,22 @@ const RestartButton = ({ onRestart }: RestartButtonProps) => {
 
   return (
     <div>
-      <Button variant="restart" size="small" handleOnClick={handleModalDisplay}>
-        <div className="flex relative justify-center">
-          <Image
-            src={restartIcon}
-            alt="restart-icon"
-            width={20}
-            height={20}
-            className="w-[20px] h-[20px] object-cover"
-          />
-        </div>
+      <Button
+        variant="restart"
+        size="small"
+        handleOnClick={handleModalDisplay}
+        className="flex relative justify-center"
+      >
+        <Image
+          src={restartIcon}
+          alt="restart-icon"
+          width={20}
+          height={20}
+          className="w-[20px] h-[20px] object-cover"
+        />
       </Button>
 
       <Modal
-        heading={
-          <Typography variant={"h1"} color={"grey"}>
-            RESTART GAME?
-          </Typography>
-        }
         showModalClsx={showModalClsx}
         handlePrimaryButton={handleRestartGame}
         handleSecondaryButton={handleModalDisplay}

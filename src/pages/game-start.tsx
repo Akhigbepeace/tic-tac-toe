@@ -66,17 +66,9 @@ const GameStart = () => {
   return (
     <div>
       <div className="flex flex-col max-w-[456px] lg:p-0 p-[24px] mx-auto">
-        <Heading onRestart={handleRestart} nextPlayer={nextPlayer} />
+        <Heading setGameBlocks={setGameBlocks} />
 
-        <GameBlocks
-          gameResult={gameResult}
-          setGameResult={setGameResult}
-          gameBlocks={gameBlocks}
-          handleBlockClick={handleBlockClick}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          setGameBlocks={setGameBlocks}
-        />
+        <GameBlocks gameBlocks={gameBlocks} setGameBlocks={setGameBlocks} />
 
         <Scores playerXScore={playerXScore} drawScore={drawScore} playerOScore={playerOScore} />
       </div>

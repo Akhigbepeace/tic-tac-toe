@@ -28,10 +28,11 @@ type ButtonProps = {
   size: SizeVariant;
   children: string | ReactNode;
   handleOnClick: () => void;
+  className?: string;
 };
 
 const Button = (props: ButtonProps) => {
-  const { children, variant, size, handleOnClick } = props;
+  const { children, variant, size, className, handleOnClick } = props;
 
   const background = backgroundVariant[variant];
   const sizes = sizeMapper[size];
@@ -41,6 +42,7 @@ const Button = (props: ButtonProps) => {
       className={clsx(
         background,
         sizes,
+        className,
         "py-[15px] font-[700] text-center transition-all text-dark-navy rounded-[10px]"
       )}
       onClick={handleOnClick}

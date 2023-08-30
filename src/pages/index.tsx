@@ -11,7 +11,7 @@ import {
 import React, { useState } from "react";
 import { NextRouter, useRouter } from "next/router";
 
-type SelectOponentButtonType = {
+interface SelectOponentButtonType {
   variant: BackgroundVariant;
   size: SizeVariant;
   handleOnClick: (
@@ -19,7 +19,7 @@ type SelectOponentButtonType = {
     setLoading: (value: boolean) => void
   ) => void;
   children: string;
-};
+}
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -41,28 +41,24 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center px-[24px] md:px-0">
+    <div className="flex flex-col items-center justify-center overflow-hidden px-[24px] md:px-0">
       <Logo />
 
       <SelectSideButton />
 
       <div className="flex flex-col gap-[20px]">
-        {selectOponentButton.map((oponent, index) => {
-          const { variant, size, children, handleOnClick } = oponent;
-
-          return (
-            <Button
-              key={index}
-              variant={variant}
-              size={size}
-              handleOnClick={() => {
-                handleOnClick(router, setLoading);
-              }}
-            >
-              {loading ? "Please wait..." : children}
-            </Button>
-          );
-        })}
+        {selectOponentButton.map((oponent, index) => (
+          <Button
+            key={index}
+            variant={oponent.variant}
+            size={oponent.size}
+            handleOnClick={() => {
+              oponent.handleOnClick(router, setLoading);
+            }}
+          >
+            {loading ? "Please wait..." : oponent.children}
+          </Button>
+        ))}
       </div>
     </div>
   );
