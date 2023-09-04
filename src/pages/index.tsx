@@ -52,10 +52,12 @@ const Home = () => {
               variant={variant}
               size={size}
               handleOnClick={() => {
+ 
                 handleOnClick(router);
               }}
             >
               {children}
+            
             </Button>
           );
         })}
