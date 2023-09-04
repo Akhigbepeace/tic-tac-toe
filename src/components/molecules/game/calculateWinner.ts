@@ -15,12 +15,12 @@ export const calculateWinner = (squares: ReactNode[]): any | null => {
   for (const combo of winningCombos) {
     const [a, b, c] = combo;
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return { winner: squares[a], combo };
+      return { player: squares[a], combo };
     }
   }
 
   if (squares.every((block) => block !== "")) {
-    return { winner: "draw", combo: [] };
+    return { player: "draw", combo: [] };
   }
 
   return null;

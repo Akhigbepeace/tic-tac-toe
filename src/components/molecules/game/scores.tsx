@@ -2,27 +2,35 @@ import Typography from "@/components/atoms/typography";
 import clsx from "clsx";
 import React from "react";
 
-const Scores = () => {
+type ScoresProps = {
+  playerXScore: number;
+  drawScore: number;
+  playerOScore: number;
+};
+
+const Scores = (props: ScoresProps) => {
+  const { playerXScore, drawScore, playerOScore } = props;
   const scores = [
     {
       title: "X (YOU)",
       background: "bg-dark-blue",
-      value: 0,
+      playerScore: playerXScore,
     },
     {
       title: "TIES",
       background: "bg-dark-grey",
-      value: 0,
+      playerScore: drawScore,
     },
     {
       title: "O (CPU)",
       background: "bg-dark-yellow",
-      value: 0,
+      playerScore: playerOScore,
     },
   ];
   return (
     <div className="flex justify-between items-center gap-[20px]">
       {scores.map((score, index) => {
+        const { title, playerScore } = score;
         return (
           <div
             key={index}
@@ -32,10 +40,10 @@ const Scores = () => {
             )}
           >
             <Typography variant="p" color="navy">
-              {score.title}
+              {title}
             </Typography>
             <Typography variant="h2" color="navy">
-              {score.value}
+              {playerScore}
             </Typography>
           </div>
         );
