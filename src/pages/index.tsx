@@ -14,15 +14,11 @@ import { NextRouter, useRouter } from "next/router";
 interface SelectOponentButtonType {
   variant: BackgroundVariant;
   size: SizeVariant;
-  handleOnClick: (
-    router: NextRouter,
-    setLoading: (value: boolean) => void
-  ) => void;
+  handleOnClick: (router: NextRouter) => void;
   children: string;
 }
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const selectOponentButton: SelectOponentButtonType[] = [
@@ -47,18 +43,24 @@ const Home = () => {
       <SelectSideButton />
 
       <div className="flex flex-col gap-[20px]">
-        {selectOponentButton.map((oponent, index) => (
-          <Button
-            key={index}
-            variant={oponent.variant}
-            size={oponent.size}
-            handleOnClick={() => {
-              oponent.handleOnClick(router, setLoading);
-            }}
-          >
-            {loading ? "Please wait..." : oponent.children}
-          </Button>
-        ))}
+        {selectOponentButton.map((oponent, index) => {
+          const { variant, size, children, handleOnClick } = oponent;
+
+          return (
+            <Button
+              key={index}
+              variant={variant}
+              size={size}
+              handleOnClick={() => {
+ 
+                handleOnClick(router);
+              }}
+            >
+              {children}
+            
+            </Button>
+          );
+        })}
       </div>
     </div>
   );
