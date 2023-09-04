@@ -14,15 +14,11 @@ import { NextRouter, useRouter } from "next/router";
 type SelectOponentButtonType = {
   variant: BackgroundVariant;
   size: SizeVariant;
-  handleOnClick: (
-    router: NextRouter,
-    setLoading: (value: boolean) => void
-  ) => void;
+  handleOnClick: (router: NextRouter) => void;
   children: string;
 };
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const selectOponentButton: SelectOponentButtonType[] = [
@@ -56,10 +52,12 @@ const Home = () => {
               variant={variant}
               size={size}
               handleOnClick={() => {
-                handleOnClick(router, setLoading);
+ 
+                handleOnClick(router);
               }}
             >
-              {loading ? "Please wait..." : children}
+              {children}
+            
             </Button>
           );
         })}
