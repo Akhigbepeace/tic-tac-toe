@@ -26,18 +26,20 @@ export type SizeVariant = keyof typeof sizeMapper;
 type ButtonProps = {
   variant: BackgroundVariant;
   size: SizeVariant;
+  disabled?: boolean;
   children: string | ReactNode;
   handleOnClick: () => void;
 };
 
 const Button = (props: ButtonProps) => {
-  const { children, variant, size, handleOnClick } = props;
+  const { children, variant, size, handleOnClick, disabled } = props;
 
   const background = backgroundVariant[variant];
   const sizes = sizeMapper[size];
 
   return (
     <button
+      disabled={disabled}
       className={clsx(
         background,
         sizes,
