@@ -1,6 +1,6 @@
 import Typography from "@/components/atoms/typography";
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 
 type ScoresProps = {
   playerXScore: number;
@@ -8,9 +8,15 @@ type ScoresProps = {
   playerOScore: number;
 };
 
+type ScoresTypes = {
+  title: string;
+  background: string;
+  playerScore: number;
+};
+
 const Scores = (props: ScoresProps) => {
   const { playerXScore, drawScore, playerOScore } = props;
-  const scores = [
+  const scores: ScoresTypes[] = [
     {
       title: "X (YOU)",
       background: "bg-dark-blue",
@@ -31,6 +37,7 @@ const Scores = (props: ScoresProps) => {
     <div className="flex justify-between items-center gap-[20px]">
       {scores.map((score, index) => {
         const { title, playerScore } = score;
+
         return (
           <div
             key={index}

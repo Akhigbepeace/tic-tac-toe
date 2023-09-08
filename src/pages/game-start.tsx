@@ -11,7 +11,7 @@ const GameStart = () => {
 
   const [gameResult, setGameResult] = useState<string | null | ReactNode>(null);
 
-  const [currentPlayer, setCurrentPlayer] = useState<ReactNode>("O");
+  const [currentPlayer, setCurrentPlayer] = useState<ReactNode>("X");
 
   const [nextPlayer, setNextPlayer] = useState<string>("O");
 
@@ -22,6 +22,8 @@ const GameStart = () => {
   const [drawScore, setDrawScore] = useState<number>(0);
 
   const [playerOScore, setPlayerOScore] = useState<number>(0);
+
+  const [gameSubHeading, setGameSubHeading] = useState<string>("");
 
   const handleRestart = () => {
     setGameResult(null);
@@ -42,6 +44,14 @@ const GameStart = () => {
 
   const checkGameResult = (squares: ReactNode[]) => {
     const winner = calculateWinner(squares);
+
+    if (winner?.player === "draw") {
+      setGameSubHeading("");
+    }
+
+    if (currentPlayer !== winner?.player) {
+      setGameSubHeading(gameSubHeading);
+    }
 
     if (winner?.player === "X") {
       setPlayerXScore(playerXScore + 1);
@@ -65,8 +75,8 @@ const GameStart = () => {
 
   return (
     <div>
-      <div className="flex flex-col max-w-[456px] lg:p-0 p-[24px] mx-auto">
-        <Heading onRestart={handleRestart} nextPlayer={nextPlayer} />
+      <div className="flex flex-col max-w-[456px] h-screen justify-center lg:p-0   p-[24px] mx-auto">
+        <Heading onRestart={handleRestart} nextPlayer={nextPlayer} initialPlayer={""} />
 
         <GameBlocks
           gameResult={gameResult}
@@ -76,9 +86,14 @@ const GameStart = () => {
           showModal={showModal}
           setShowModal={setShowModal}
           setGameBlocks={setGameBlocks}
+          gameSubHeading={gameSubHeading}
         />
 
-        <Scores playerXScore={playerXScore} drawScore={drawScore} playerOScore={playerOScore} />
+        <Scores
+          playerXScore={playerXScore}
+          drawScore={drawScore}
+          playerOScore={playerOScore}
+        />
       </div>
     </div>
   );

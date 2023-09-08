@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React, { ReactNode } from "react";
 
 const typographyVariants = {
-  h1: "text-[40px] font-[700]",
+  h1: "xl:text-[40px] text-[24px] font-[700]",
   h2: "text-[24px] font-[700]",
   h3: "text-[20px] font-[700]",
   h4: "text-[16px] font-[700]",
@@ -21,19 +21,20 @@ type TextColorVariants = keyof typeof textColorVariants;
 
 type TypographyProps = {
   variant: TypographyVariants;
-  children: string | number | ReactNode;
+  children: string | number | ReactNode ;
   color: TextColorVariants;
   htmlTag?: TypographyVariants | "span" | "div";
+  spacing?: string;
 };
 
 const Typography = (props: TypographyProps) => {
-  const { children, variant, htmlTag, color = "grey" } = props;
+  const { children, variant, htmlTag, spacing, color = "grey" } = props;
   const Component = htmlTag || variant;
   const typographyClx = typographyVariants[variant];
   const textColorClx = textColorVariants[color];
 
   return (
-    <Component className={clsx(typographyClx, textColorClx)}>
+    <Component className={clsx(typographyClx, textColorClx, spacing)}>
       {children}
     </Component>
   );

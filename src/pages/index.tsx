@@ -14,37 +14,39 @@ import { NextRouter, useRouter } from "next/router";
 type SelectOponentButtonType = {
   variant: BackgroundVariant;
   size: SizeVariant;
-  handleOnClick: (router: NextRouter) => void;
+  handleButtonClick: (router: NextRouter) => void;
   children: string;
 };
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(Array(2).fill(false));
+
   const router = useRouter();
 
   const selectOponentButton: SelectOponentButtonType[] = [
     {
       variant: "primaryButton1",
       size: "primary",
-      handleOnClick: handleNewGameVsComputer,
+      handleButtonClick: handleNewGameVsComputer,
       children: "NEW GAME (VS CPU)",
     },
     {
       variant: "primaryButton2",
       size: "primary",
-      handleOnClick: handleNewGameVsPlayer,
+      handleButtonClick: handleNewGameVsPlayer,
       children: "NEW GAME (VS PLAYER)",
     },
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center px-[24px] md:px-0">
+    <div className="flex flex-col items-center justify-center h-screen px-[24px] md:px-0">
       <Logo />
 
       <SelectSideButton />
 
       <div className="flex flex-col gap-[20px]">
         {selectOponentButton.map((oponent, index) => {
-          const { variant, size, children, handleOnClick } = oponent;
+          const { variant, size, children, handleButtonClick } = oponent;
 
           return (
             <Button
@@ -52,10 +54,13 @@ const Home = () => {
               variant={variant}
               size={size}
               handleOnClick={() => {
-                handleOnClick(router);
+                const newLoading = [...isLoading];
+                newLoading[index] = true;
+                setIsLoading(newLoading);
+                handleButtonClick(router);
               }}
             >
-              {children}
+              {isLoading[index] ? "Please Wait..." : children}
             </Button>
           );
         })}

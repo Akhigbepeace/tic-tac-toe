@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import XIcon from "@/components/atoms/x-icon";
 import OIcon from "@/components/atoms/o-icon";
 import Modal from "@/components/organisms/modal";
@@ -10,11 +10,24 @@ type GameBlocksProps = {
   gameBlocks: ReactNode[];
   gameResult: string | null | any;
   showModal: boolean;
+  gameSubHeading: string | undefined;
   setGameBlocks: (value: ReactNode[]) => void;
   handleBlockClick: (value: number) => void;
   setShowModal: (value: boolean) => void;
   setGameResult: (value: string | null) => void;
 };
+
+const x_icon = (
+  <div className="xl:w-[64px] xl:h-[64px] w-[28px] h-[28px] ">
+    <XIcon />
+  </div>
+);
+
+const o_icon = (
+  <div className="xl:w-[64px] xl:h-[64px] w-[28px] h-[28px] ">
+    <OIcon />
+  </div>
+);
 
 const GameBlocks = (props: GameBlocksProps) => {
   const {
@@ -25,6 +38,7 @@ const GameBlocks = (props: GameBlocksProps) => {
     handleBlockClick,
     setShowModal,
     setGameResult,
+    gameSubHeading,
   } = props;
 
   const result = calculateWinner(gameBlocks);
@@ -39,19 +53,22 @@ const GameBlocks = (props: GameBlocksProps) => {
 
   let modalHeading;
 
-  if (gameResult === "draw") {
+  if (gameResult?.player === "draw") {
     modalHeading = (
       <Typography variant={"h1"} color={"grey"}>
         ROUND TIED
       </Typography>
     );
   } else if (gameResult) {
-    const { winner } = gameResult;
     modalHeading = (
-      <div className="flex gap-[24px]">
-        {winner === "X" ? <XIcon /> : <OIcon />}
+      <div className="flex items-center justify-center gap-[8px] xl:gap-[24px]">
+        {gameResult.player === "X" ? x_icon : o_icon}
 
-        <Typography variant={"h1"} color={winner === "X" ? "blue" : "yellow"}>
+        <Typography
+          variant={"h1"}
+          spacing="tracking-[1.5px]"
+          color={gameResult.player === "X" ? "blue" : "yellow"}
+        >
           TAKES THE ROUND
         </Typography>
       </div>
@@ -74,7 +91,7 @@ const GameBlocks = (props: GameBlocksProps) => {
               key={index}
               className={clsx(
                 isWinningBlocks,
-                "lg:w-[140px] lg:h-[140px] mx-auto w-[96px] h-[96px] grid rounded-[10px] shadow-[0px_8px_0px_#10212A]"
+                "md:w-[140px] lg:h-[140px] mx-auto w-[96px] h-[96px] grid rounded-[10px] shadow-[0px_8px_0px_#10212A]"
               )}
               onClick={() => handleBlockClick(index)}
             >
@@ -87,11 +104,16 @@ const GameBlocks = (props: GameBlocksProps) => {
 
       {showModal && (
         <Modal
+          subHeading={gameSubHeading ? "YOU WON!" : "OH NO, YOU LOST…"}
           heading={modalHeading}
           handleSecondaryButton={handleQuitGame}
           handlePrimaryButton={handleNextRound}
-          primaryButtonText="NEXT ROUND"
-          secondaryButtonText="QUIT"
+          primaryButtonText={
+            gameResult?.player === "draw" ? "YES, RESTART " : "NEXT ROUND"
+          }
+          secondaryButtonText={
+            gameResult?.player === "draw" ? "NO, CANCEL" : "QUIT"
+          }
         />
       )}
     </>

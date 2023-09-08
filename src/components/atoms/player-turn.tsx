@@ -1,7 +1,12 @@
 import Image from "next/image";
 import React from "react";
 
-const PlayerTurn = ({ nextPlayer }: any) => {
+type PlayerTurnProps = {
+  nextPlayer: string;
+  initialPlayer: String;
+};
+
+const PlayerTurn = ({ nextPlayer, initialPlayer }: PlayerTurnProps) => {
   const XShpae = "/assets/icon-x-grey.svg";
   const OShpae = "/assets/icon-o-grey.svg";
 

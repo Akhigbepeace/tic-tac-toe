@@ -4,7 +4,7 @@ import Button from "../atoms/button";
 import clsx from "clsx";
 
 type ModalProps = {
-  subHeading?: string;
+  subHeading?: "OH NO, YOU LOST…" | "YOU WON!";
   heading: ReactNode;
   showModalClsx?: string;
   handleSecondaryButton: () => void;
